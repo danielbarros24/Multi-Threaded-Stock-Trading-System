@@ -1,0 +1,33 @@
+@startuml 
+
+skinparam linetype ortho
+skinparam Monochrome true
+skinparam classAttributeIconSize 0
+
+ title User authentication Sequence Diagram
+
+User -> LoginPage: loginRequest()
+activate User
+activate LoginPage
+LoginPage -> User: enterDetails()
+User -> LoginPage: username
+User -> LoginPage: password
+LoginPage -> authenticationSystem: authenticateUser()
+activate authenticationSystem
+authenticationSystem -> authenticationSystem: validate info
+
+group Alternative           [if valid details]
+    authenticationSystem --> LoginPage : Accepted
+    LoginPage -> User : Login Accepted
+    LoginPage -> User : Redirect to Target Page
+
+    else not valid details
+        authenticationSystem --> LoginPage : Rejected
+        deactivate authenticationSystem
+        LoginPage -> User : Login Rejected
+end
+deactivate LoginPage
+deactivate authenticationSystem
+
+
+@enduml

@@ -14,13 +14,13 @@ std::string getPassword() {
     std::string password;
     char ch;
 
-    while ((ch = _getch()) != '\r') { // '\r' é a tecla Enter no Windows
+    while ((ch = _getch()) != '\r') {
         if (ch == '\b') { // Backspace
             if (!password.empty()) {
-                std::cout << "\b \b"; // Move o cursor para trás, apaga o caractere e move o cursor para trás novamente
+                std::cout << "\b \b";
                 password.pop_back();
             }
-        } else if (ch == 27) { // Esc para cancelar
+        } else if (ch == 27) {
             std::cout << "\nPassword input cancelled.\n";
             password.clear();
             break;
@@ -29,7 +29,7 @@ std::string getPassword() {
             std::cout << '*';
         }
     }
-    std::cout << std::endl; // Move para a próxima linha após Enter
+    std::cout << std::endl;
     return password;
 }
 
