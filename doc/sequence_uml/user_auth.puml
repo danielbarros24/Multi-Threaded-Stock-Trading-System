@@ -10,7 +10,7 @@ User -> LoginPage: loginRequest()
 activate User
 activate LoginPage
 LoginPage -> User: enterDetails()
-User -> LoginPage: username
+User -> LoginPage: email
 User -> LoginPage: password
 LoginPage -> authenticationSystem: authenticateUser()
 activate authenticationSystem

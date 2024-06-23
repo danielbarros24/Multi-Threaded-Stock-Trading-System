@@ -5,6 +5,12 @@
 using namespace std;
 
 int main() {
-    loginSystem();
+		
+    if (loginSystem()){
+			printf("ENTERING IN APPLICATION");
+		}
+		else {
+			while(1);
+		}
     return 0;   
 }

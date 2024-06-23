@@ -8,10 +8,11 @@
 std::string hashPassword(const std::string& password);
 bool createTable(sqlite3* db);
 bool createDatabase();
-bool registerUser(const std::string& username, const std::string& password);
-bool authenticateUser(const std::string& username, std::string& password);
+bool registerUser(const std::string& email, const std::string& password);
+bool authenticateUser(const std::string& email, std::string& password);
+bool resetPassword(const std::string& email,std::string& newPassword);
 std::string getPassword();
-void loginSystem();
+bool loginSystem();
 
 
 #endif // LOGINSYSTEM_H
