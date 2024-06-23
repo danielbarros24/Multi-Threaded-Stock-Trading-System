@@ -1,5 +1,7 @@
 #include "loginSystem.h"
+#include "sha256.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <conio.h>
 #include <regex>
@@ -12,7 +14,20 @@
 using namespace std;
 
 std::string hashPassword(const std::string& password) {
-    return "hashed_" + password;
+    SHA256_CTX ctx;
+    sha256_init(&ctx);
+    sha256_update(&ctx, reinterpret_cast<const BYTE*>(password.c_str()), password.size());
+    
+    BYTE hash[SHA256_BLOCK_SIZE];
+    sha256_final(&ctx, hash);
+
+    // Converter o hash para uma string hexadecimal
+    std::stringstream ss;
+    for (int i = 0; i < SHA256_BLOCK_SIZE; ++i) {
+        ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash[i]);
+    }
+    
+    return ss.str();
 }
 
 //This function creates a Table in the Database
