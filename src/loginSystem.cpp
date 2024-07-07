@@ -1,5 +1,5 @@
-#include "loginSystem.h"
-#include "sha256.h"
+#include "../include/loginSystem.h"
+#include "../include/sha256.h"
 #include <iostream>
 #include <iomanip>
 #include <string>

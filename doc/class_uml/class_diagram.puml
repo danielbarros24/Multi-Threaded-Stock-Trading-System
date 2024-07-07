@@ -1,0 +1,114 @@
+@startuml
+
+skinparam linetype ortho
+skinparam Monochrome true
+skinparam classAttributeIconSize 0
+
+title Trading System Class Diagram
+
+' Classes Description 
+class Trader {
+  - id_counter : int
+  - id : int
+  - name : string
+  - stocks : vector<Stock>
+  - orderFactory : OrderFactory*
+  - orderBook : OrderBook*
+  - orders : vector<shared_ptr<Order>>
+  + buy(Stock, int) : void
+  + sell(Stock, int) : void
+  + trade(double, double, int, int) : void
+  + getID() : int
+  + getOrders() : const vector<shared_ptr<Order>>&
+  + addStock(Stock) : void
+  + getStocks() : vector<Stock>
+}
+
+exception TraderException {
+  - message : string
+  + what() : conts char*
+}
+
+class Stock {
+  - name : string
+  - price : double
+  + setName(string) : void
+  + setPrice(double) : void
+  + getName() : string
+  + getPrice() : double
+}
+
+class Order {
+  - trader_id : int
+  - price : double
+  - quantity : int
+  - timestamp : time_t
+  - ordertype : OrderType
+  + getOrderType() : string
+  + getTraiderId() : int
+  + getPrice() : double
+  + getQuantity() : int
+  + getTimestamp() : time_t
+  + reduceQuantity() : void
+  + getOrderType() : OrderType
+  + setOrderType(OrderType) : void
+}
+
+enum OrderType {
+  BUY 
+  SELL 
+}
+
+class OrderBook {
+  - book : vector<shared_ptr<Order>>
+  - strategy : OrderMacthingStrategy*
+  + addOrder(shared_ptr<Order>) : void
+  + matchOrders() : void
+  + printOrderBook(): void
+  + setStrategy(OrderMacthingStrategy*) : void
+}
+
+class OrderMatchingStrategy {
+   + matchOrders(vector<shared_ptr<Order>>&, vector<shared_ptr<Order>>&) : void
+}
+
+class PriceTimeOrderMatchingStrategy {
+   + matchOrders(vector<shared_ptr<Order>>&, vector<shared_ptr<Order>>&) : void
+}
+
+class MarketOrder {
+  + getOrderType() : string
+}
+
+class LimitOrder {
+  + getOrderType() : string
+}
+
+class OrderFactory {
+  + createOrder(int, double, int) : unique_ptr<Order>
+}
+
+class MarketOrderFactory {
+  + createOrder(int, double, int) : unique_ptr<Order>
+}
+
+class LimitOrderFactory {
+  + createOrder(int, double, int) : unique_ptr<Order>
+}
+
+' Classes Interaction
+TraderException --> Trader
+OrderMatchingStrategy *-left- Order
+OrderMatchingStrategy o-- OrderBook
+OrderMatchingStrategy <|-- PriceTimeOrderMatchingStrategy
+Trader o-- OrderBook
+Trader *-- Stock
+Trader o-- Order 
+Trader o-- OrderFactory  
+Order *-- OrderType
+OrderBook o-- Order
+Order <|-- MarketOrder
+Order <|-- LimitOrder
+OrderFactory <|-- MarketOrderFactory
+OrderFactory <|-- LimitOrderFactory
+@enduml
