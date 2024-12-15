@@ -9,7 +9,6 @@
 
 namespace TradingSystemClasses {
 
-
   class TraderException : public std::exception
   {
   public:

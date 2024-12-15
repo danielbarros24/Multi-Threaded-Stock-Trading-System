@@ -19,5 +19,4 @@ namespace TradingSystemClasses {
   };
 }
 
-
 #endif //STOCK_H
