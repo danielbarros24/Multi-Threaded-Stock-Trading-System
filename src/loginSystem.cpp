@@ -356,7 +356,7 @@ bool loginSystem() {
                  break;
             
             default:
-                std::cout << "Invalid option! Try again." << std::endl;
+                std::cout << "Invalid option! Try again." << endl;
                 break;
         }
 
